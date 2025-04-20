@@ -1,1 +1,18 @@
-
+name: Entrenamiento Diario
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 2:00 AM UTC
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Entrenar modelo
+        run: python src/daily_training.py
